@@ -155,9 +155,6 @@ MonoBehaviour:
   - {fileID: 702816386584017827, guid: 82829974564055a4eaae204396579a4b, type: 3}
   - {fileID: 5191652894858865766, guid: be5253dca17622e458704e8df50acce8, type: 3}
   - {fileID: 135141445537101426, guid: 5cb988501d816bf408926ec9248eca7d, type: 3}
-  sizeX: 4
-  sizeY: 6
-  offset: {x: -2, y: -3}
 --- !u!114 &156213787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4f3c2a7a856164d90d200bc6afda05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 8144337880374544957, guid: 91e27643b97c1fe41b1a45833f416439, type: 3}
+  - {fileID: 702816386584017827, guid: 82829974564055a4eaae204396579a4b, type: 3}
+  - {fileID: 5191652894858865766, guid: be5253dca17622e458704e8df50acce8, type: 3}
+  - {fileID: 135141445537101426, guid: 5cb988501d816bf408926ec9248eca7d, type: 3}
+  sizeX: 4
+  sizeY: 6
+  offset: {x: -1.5, y: -3}
 --- !u!4 &156213788
 Transform:
   m_ObjectHideFlags: 0
