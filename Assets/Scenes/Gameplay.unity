@@ -172,9 +172,9 @@ MonoBehaviour:
   - {fileID: 702816386584017827, guid: 82829974564055a4eaae204396579a4b, type: 3}
   - {fileID: 5191652894858865766, guid: be5253dca17622e458704e8df50acce8, type: 3}
   - {fileID: 135141445537101426, guid: 5cb988501d816bf408926ec9248eca7d, type: 3}
-  sizeX: 4
-  sizeY: 6
-  offset: {x: -1.5, y: -3}
+  sizeX: 6
+  sizeY: 8
+  offset: {x: -2.5, y: -4}
 --- !u!4 &156213788
 Transform:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

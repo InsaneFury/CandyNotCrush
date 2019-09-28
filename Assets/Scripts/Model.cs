@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Model
 {
-    int [,] grid;
+    public int [,] grid;
 
+    public void SetGrid(int [,] _grid)
+    {
+        grid = _grid;
+    }
 
+    public int[,] GetGrid()
+    {
+        return grid;
+    }
 
     
 }

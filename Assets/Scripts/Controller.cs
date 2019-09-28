@@ -5,7 +5,10 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public GameObject[] tiles;
-    GameObject[,] grid;
+    public GameObject[,] grid;
+
+    Camera mcamera;
+    RaycastHit raycast;
 
     Model model;
     View view;
@@ -19,12 +22,22 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
+        mcamera = Camera.main;
         GridInit();
     }
 
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(
+                               Camera.main.ScreenToWorldPoint(Input.mousePosition), 
+                               Vector2.zero);
+            if (hit)
+            {
+                Debug.Log(hit.transform.gameObject.name);
+            }
+        }
     }
 
     void GridInit()
@@ -39,7 +52,7 @@ public class Controller : MonoBehaviour
                     Instantiate(tiles[Random.Range(0, tiles.Length)], new Vector2(i + offset.x, j + offset.y),
                     Quaternion.identity);
                 go.transform.SetParent(gameObject.transform);
-                go.name = go.name.Replace(" (clone)", " ").Trim();
+                go.name = "(" + i + "," + j + ")";
                 grid[i, j] = go;
             }
         }
