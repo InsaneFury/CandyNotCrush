@@ -4,31 +4,13 @@ using UnityEngine;
 
 public class Controller : MonobehaviourSingleton<Controller>
 {
-    public ArrayLayout boardLayout;
-
-    [Header("UI Elements")]
-    public Sprite[] pieces;
-    public RectTransform gameBoard;
-    public RectTransform killedBoard;
-
-    [Header("Prefabs")]
-    public GameObject nodePiece;
-    public GameObject killedPiece;
-
     [HideInInspector]
     public int width = 9;
     [HideInInspector]
     public int height = 14;
-    int[] fills;
-    Node[,] board;
-
+    
     Model model;
     View view;
-
-    List<NodePiece> update;
-    List<FlippedPieces> flipped;
-    List<NodePiece> dead;
-    List<KilledPiece> killed;
 
     System.Random random;
 
@@ -39,6 +21,7 @@ public class Controller : MonobehaviourSingleton<Controller>
 
     void Start()
     {
+        model = new Model();
         view = GetComponent<View>();
         StartGame();
     }
@@ -46,9 +29,9 @@ public class Controller : MonobehaviourSingleton<Controller>
     void Update()
     {
         List<NodePiece> finishedUpdating = new List<NodePiece>();
-        for(int i = 0; i < update.Count; i++)
+        for(int i = 0; i < model.update.Count; i++)
         {
-            NodePiece piece = update[i];
+            NodePiece piece = model.update[i];
             if (!piece.UpdatePiece()) finishedUpdating.Add(piece);
         }
         for (int i = 0; i < finishedUpdating.Count; i++)
@@ -58,7 +41,7 @@ public class Controller : MonobehaviourSingleton<Controller>
             NodePiece flippedPiece = null;
 
             int x = (int)piece.index.x;
-            fills[x] = Mathf.Clamp(fills[x] - 1, 0, width);
+            model.fills[x] = Mathf.Clamp(model.fills[x] - 1, 0, width);
 
             List<Point> connected = isConnected(piece.index, true);
             bool wasFlipped = (flip != null);
@@ -84,7 +67,7 @@ public class Controller : MonobehaviourSingleton<Controller>
                     if (nodePiece != null)
                     {
                         nodePiece.gameObject.SetActive(false);
-                        dead.Add(nodePiece);
+                        model.dead.Add(nodePiece);
                     }
                     node.SetPiece(null);
                 }
@@ -92,8 +75,8 @@ public class Controller : MonobehaviourSingleton<Controller>
                 ApplyGravityToBoard();
             }
 
-            flipped.Remove(flip); //Remove the flip after update
-            update.Remove(piece);
+            model.flipped.Remove(flip); //Remove the flip after update
+            model.update.Remove(piece);
         }
     }
 
@@ -120,7 +103,7 @@ public class Controller : MonobehaviourSingleton<Controller>
 
                         //Set the hole
                         node.SetPiece(piece);
-                        update.Add(piece);
+                        model.update.Add(piece);
 
                         //Make a new hole
                         gotten.SetPiece(null);
@@ -129,29 +112,29 @@ public class Controller : MonobehaviourSingleton<Controller>
                     {
                         int newVal = fillPiece();
                         NodePiece piece;
-                        Point fallPnt = new Point(x, (-1 - fills[x]));
-                        if(dead.Count > 0)
+                        Point fallPnt = new Point(x, (-1 - model.fills[x]));
+                        if(model.dead.Count > 0)
                         {
-                            NodePiece revived = dead[0];
+                            NodePiece revived = model.dead[0];
                             revived.gameObject.SetActive(true);
                             piece = revived;
 
-                            dead.RemoveAt(0);
+                            model.dead.RemoveAt(0);
                         }
                         else
                         {
-                            GameObject obj = Instantiate(nodePiece, gameBoard);
+                            GameObject obj = Instantiate(view.nodePiece, view.gameBoard);
                             NodePiece n = obj.GetComponent<NodePiece>();
                             piece = n;
                         }
 
-                        piece.Initialize(newVal, p, pieces[newVal - 1]);
+                        piece.Initialize(newVal, p, view.pieces[newVal - 1]);
                         piece.rect.anchoredPosition = getPositionFromPoint(fallPnt);
 
                         Node hole = getNodeAtPoint(p);
                         hole.SetPiece(piece);
                         ResetPiece(piece);
-                        fills[x]++;
+                        model.fills[x]++;
                     }
                     break;
                 }
@@ -162,11 +145,11 @@ public class Controller : MonobehaviourSingleton<Controller>
     FlippedPieces getFlipped(NodePiece p)
     {
         FlippedPieces flip = null;
-        for (int i = 0; i < flipped.Count; i++)
+        for (int i = 0; i < model.flipped.Count; i++)
         {
-            if (flipped[i].getOtherPiece(p) != null)
+            if (model.flipped[i].getOtherPiece(p) != null)
             {
-                flip = flipped[i];
+                flip = model.flipped[i];
                 break;
             }
         }
@@ -175,13 +158,13 @@ public class Controller : MonobehaviourSingleton<Controller>
 
     void StartGame()
     {
-        fills = new int[width];
+        model.fills = new int[width];
         string seed = getRandomSeed();
         random = new System.Random(seed.GetHashCode());
-        update = new List<NodePiece>();
-        flipped = new List<FlippedPieces>();
-        dead = new List<NodePiece>();
-        killed = new List<KilledPiece>();
+        model.update = new List<NodePiece>();
+        model.flipped = new List<FlippedPieces>();
+        model.dead = new List<NodePiece>();
+        model.killed = new List<KilledPiece>();
 
         InitializeBoard();
         VerifyBoard();
@@ -190,12 +173,12 @@ public class Controller : MonobehaviourSingleton<Controller>
 
     void InitializeBoard()
     {
-        board = new Node[width, height];
+        model.board = new Node[width, height];
         for(int y = 0; y < height; y++)
         {
             for(int x = 0; x < width; x++)
             {
-                board[x, y] = new Node((boardLayout.rows[y].row[x]) ? - 1 : fillPiece(), new Point(x, y));
+                model.board[x, y] = new Node((view.boardLayout.rows[y].row[x]) ? - 1 : fillPiece(), new Point(x, y));
             }
         }
     }
@@ -222,13 +205,11 @@ public class Controller : MonobehaviourSingleton<Controller>
             }
         }
     }
-
-    
      
     public void ResetPiece(NodePiece piece)
     {
         piece.ResetPosition();
-        update.Add(piece);
+        model.update.Add(piece);
     }
 
     public void FlipPieces(Point one, Point two, bool main)
@@ -245,10 +226,10 @@ public class Controller : MonobehaviourSingleton<Controller>
             nodeTwo.SetPiece(pieceOne);
 
             if(main)
-                flipped.Add(new FlippedPieces(pieceOne, pieceTwo));
+                model.flipped.Add(new FlippedPieces(pieceOne, pieceTwo));
 
-            update.Add(pieceOne);
-            update.Add(pieceTwo);
+            model.update.Add(pieceOne);
+            model.update.Add(pieceTwo);
         }
         else
             ResetPiece(pieceOne);
@@ -257,23 +238,23 @@ public class Controller : MonobehaviourSingleton<Controller>
     void KillPiece(Point p)
     {
         List<KilledPiece> available = new List<KilledPiece>();
-        for (int i = 0; i < killed.Count; i++)
-            if (!killed[i].falling) available.Add(killed[i]);
+        for (int i = 0; i < model.killed.Count; i++)
+            if (!model.killed[i].falling) available.Add(model.killed[i]);
 
         KilledPiece set = null;
         if (available.Count > 0)
             set = available[0];
         else
         {
-            GameObject kill = GameObject.Instantiate(killedPiece, killedBoard);
+            GameObject kill = GameObject.Instantiate(view.killedPiece, view.killedBoard);
             KilledPiece kPiece = kill.GetComponent<KilledPiece>();
             set = kPiece;
-            killed.Add(kPiece);
+            model.killed.Add(kPiece);
         }
 
         int val = getValueAtPoint(p) - 1;
-        if (set != null && val >= 0 && val < pieces.Length)
-            set.Initialize(pieces[val], getPositionFromPoint(p));
+        if (set != null && val >= 0 && val < view.pieces.Length)
+            set.Initialize(view.pieces[val], getPositionFromPoint(p));
     }
 
     List<Point> isConnected(Point p, bool main)
@@ -379,30 +360,30 @@ public class Controller : MonobehaviourSingleton<Controller>
     int fillPiece()
     {
         int val = 1;
-        val = Random.Range(0, pieces.Length) + 1;
+        val = Random.Range(0, view.pieces.Length) + 1;
         return val;
     }
 
     int getValueAtPoint(Point p)
     {
         if (p.x < 0 || p.x >= width || p.y < 0 || p.y >= height) return -1;
-        return board[p.x, p.y].value;
+        return model.board[p.x, p.y].value;
     }
 
     void setValueAtPoint(Point p, int v)
     {
-        board[p.x, p.y].value = v;
+        model.board[p.x, p.y].value = v;
     }
 
     public Node getNodeAtPoint(Point p)
     {
-        return board[p.x, p.y];
+        return model.board[p.x, p.y];
     }
 
     int newValue(ref List<int> remove)
     {
         List<int> available = new List<int>();
-        for (int i = 0; i < pieces.Length; i++)
+        for (int i = 0; i < view.pieces.Length; i++)
             available.Add(i + 1);
         foreach (int i in remove)
             available.Remove(i);

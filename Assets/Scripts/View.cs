@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
+    public ArrayLayout boardLayout;
+
+    [Header("UI Elements")]
+    public Sprite[] pieces;
+    public RectTransform gameBoard;
+    public RectTransform killedBoard;
+
+    [Header("Prefabs")]
+    public GameObject nodePiece;
+    public GameObject killedPiece;
+
     int width = 0;
     int height = 0;
 
@@ -26,11 +37,11 @@ public class View : MonoBehaviour
 
                 int val = node.value;
                 if (val <= 0) continue;
-                GameObject p = Instantiate(controller.nodePiece, controller.gameBoard);
+                GameObject p = Instantiate(nodePiece, gameBoard);
                 NodePiece piece = p.GetComponent<NodePiece>();
                 RectTransform rect = p.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector2(32 + (64 * x), -32 - (64 * y));
-                piece.Initialize(val, new Point(x, y), controller.pieces[val - 1]);
+                piece.Initialize(val, new Point(x, y),pieces[val - 1]);
                 node.SetPiece(piece);
             }
         }

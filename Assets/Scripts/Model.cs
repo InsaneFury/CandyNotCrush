@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class Model
 {
-    public int [,] grid;
+    public int[] fills;
+    public Node[,] board;
 
-    public void SetGrid(int [,] _grid)
-    {
-        grid = _grid;
-    }
-
-    public int[,] GetGrid()
-    {
-        return grid;
-    }
-
-    
+    public List<NodePiece> update;
+    public List<FlippedPieces> flipped;
+    public List<NodePiece> dead;
+    public List<KilledPiece> killed;
 }

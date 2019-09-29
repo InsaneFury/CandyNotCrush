@@ -146,26 +146,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156213785}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59004b528ed26c249b67716ae66785de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tiles:
-  - {fileID: 8144337880374544957, guid: 91e27643b97c1fe41b1a45833f416439, type: 3}
-  - {fileID: 702816386584017827, guid: 82829974564055a4eaae204396579a4b, type: 3}
-  - {fileID: 5191652894858865766, guid: be5253dca17622e458704e8df50acce8, type: 3}
-  - {fileID: 135141445537101426, guid: 5cb988501d816bf408926ec9248eca7d, type: 3}
---- !u!114 &156213787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156213785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f59efba3d1325848ba87a931a93b0f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 59004b528ed26c249b67716ae66785de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boardLayout:
@@ -196,6 +179,21 @@ MonoBehaviour:
     type: 3}
   killedPiece: {fileID: 8407249502649688717, guid: 4460c3a24e21a3944a036b0fef74b3a8,
     type: 3}
+--- !u!114 &156213787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156213785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f59efba3d1325848ba87a931a93b0f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPersistant: 0
+  width: 9
+  height: 14
 --- !u!4 &156213788
 Transform:
   m_ObjectHideFlags: 0
