@@ -35,6 +35,9 @@ public class KilledPiece : MonoBehaviour
         moveDir.x = Mathf.Lerp(moveDir.x, 0, Time.deltaTime);
         rect.anchoredPosition += moveDir * Time.deltaTime * speed;
         if (rect.position.x < -64f || rect.position.x > Screen.width + 64f || rect.position.y < -64f || rect.position.y > Screen.height + 64f)
+        {
             falling = false;
+        }
+            
     }
 }
