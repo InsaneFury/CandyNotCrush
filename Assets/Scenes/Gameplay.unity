@@ -296,6 +296,8 @@ MonoBehaviour:
   - {fileID: -3482342668690567257, guid: adb4e7c8f98dad947b201f64f40980c6, type: 3}
   - {fileID: -7947286912203746084, guid: adb4e7c8f98dad947b201f64f40980c6, type: 3}
   - {fileID: 2085302007574777367, guid: adb4e7c8f98dad947b201f64f40980c6, type: 3}
+  - {fileID: 21300000, guid: 98b6fc21d9bfd1447911ca1a81da14af, type: 3}
+  - {fileID: 21300000, guid: 414c88cfebb285145a8361c1f86e3d58, type: 3}
   gameBoard: {fileID: 1136235274}
   killedBoard: {fileID: 1000229214}
   nodePiece: {fileID: 8185595420993157851, guid: be5253dca17622e458704e8df50acce8,
@@ -483,6 +485,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238041987}
   m_CullTransparentMesh: 0
+--- !u!1 &333379471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333379473}
+  - component: {fileID: 333379472}
+  - component: {fileID: 333379474}
+  m_Layer: 0
+  m_Name: GPGS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &333379472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333379471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40c645d7dbcb7e448770938783634ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointText: {fileID: 404905006}
+  leaderBoard: CgkIlKCZ-PAYEAIQAw
+  acheivementID: CgkIlKCZ-PAYEAIQAQ
+--- !u!4 &333379473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333379471}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 508.8295, y: 521.1493, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &333379474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333379471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6ee3ab9aae90940916b071c88fb654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &404905004
 GameObject:
   m_ObjectHideFlags: 0
@@ -5726,7 +5787,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 753361758}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 333379474}
+        m_MethodName: ShowAchievement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &753361758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6358,7 +6430,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1548337817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 333379474}
+        m_MethodName: ShowLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1548337817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6409,7 +6492,7 @@ GameObject:
   - component: {fileID: 1628753218}
   - component: {fileID: 1628753217}
   m_Layer: 5
-  m_Name: Login
+  m_Name: LogOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6476,7 +6559,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1628753218}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 333379474}
+        m_MethodName: LogOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1628753218
 MonoBehaviour:
   m_ObjectHideFlags: 0

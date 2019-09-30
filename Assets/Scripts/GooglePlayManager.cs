@@ -44,25 +44,25 @@ public class GooglePlayManager : MonoBehaviour
         });
     }
 
-    public void LogOut()
+    public static void LogOut()
     {
         PlayGamesPlatform.Instance.SignOut();
     }
 
-    public void UnlockAchievementTest()
+    public static void UnlockAchievement(string id)
     {
-        Social.ReportProgress(acheivementID, 100.0f, (bool success) =>
+        Social.ReportProgress(id, 100, (bool success) =>
         {
             // handle success or failure
         });
     }
 
-    public void ShowAchievements()
+    public static void ShowAchievements()
     {
         Social.ShowAchievementsUI();
     }
 
-    public void ShowLeaderboards()
+    public static void ShowLeaderboards()
     {
         Social.ShowLeaderboardUI();
     }
